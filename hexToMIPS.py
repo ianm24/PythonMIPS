@@ -20,11 +20,11 @@ def hexToInstruction(hexNum):
 		# print(binInstruction)
 		betweenInstruction = [binInstruction[0], baseChange.binToDec(binInstruction[1]),
 		baseChange.binToDec(binInstruction[2]), baseChange.binToDec(binInstruction[3])]
-		print(betweenInstruction)
+		# print(betweenInstruction)
 		preFormatInstruction = [getOpCode(baseChange.binToHex(binInstruction[0]),'None'), 
 			getRegister(betweenInstruction[1]), getRegister(betweenInstruction[2]),
 			betweenInstruction[3]]
-		print(preFormatInstruction)
+		# print(preFormatInstruction)
 		print('Hex Instruction: ' + str(hexNum) + '\nMIPS Instruction: ' 
 			+ str(preFormatInstruction[0]) + ' ' + str(preFormatInstruction[2]) 
 			+ ', ' + str(preFormatInstruction[1]) + ', ' + str(preFormatInstruction[3]))
@@ -38,7 +38,7 @@ def hexToInstruction(hexNum):
 			baseChange.binToDec(binInstruction[2]),baseChange.binToDec(binInstruction[3]),
 			baseChange.binToDec(binInstruction[4]),hexNum[6:]]
 		# print(betweenInstruction)
-		preFormatInstruction = [getOpCode(hexNum[0],hexNum[6:]), 
+		preFormatInstruction = [getOpCode(betweenInstruction[0],hexNum[6:]), 
 			getRegister(betweenInstruction[1]), getRegister(betweenInstruction[2]),
 			getRegister(betweenInstruction[3]), getRegister(betweenInstruction[4])]
 		# print(preFormatInstruction)
