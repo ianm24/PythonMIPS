@@ -6,6 +6,7 @@ import baseChange
 import csv,sys,math
 
 
+
 MIPS_INSTRUCTION_LIST = 'MIPSInstructions.csv'
 DELIM = ","
 
@@ -13,32 +14,35 @@ DELIM = ","
 def hexToInstruction(hexNum):
 	binNum = baseChange.hexToBin(hexNum)
 	if '1' in binNum[:6]:
-		print('I-type')
+		# print('I-type')
 		# opCode, rsSource, rtDestination, imm
 		binInstruction = [binNum[0:6],binNum[6:11],binNum[11:16],binNum[16:]]
 		# print(binInstruction)
 		betweenInstruction = [binInstruction[0], baseChange.binToDec(binInstruction[1]),
 		baseChange.binToDec(binInstruction[2]), baseChange.binToDec(binInstruction[3])]
-		# print(betweenInstruction)
-		preFormatInstruction = [binInstruction[0], 
+		print(betweenInstruction)
+		preFormatInstruction = [getOpCode(baseChange.binToHex(binInstruction[0]),'None'), 
 			getRegister(betweenInstruction[1]), getRegister(betweenInstruction[2]),
 			betweenInstruction[3]]
-		# print(preFormatInstruction)
+		print(preFormatInstruction)
+		print('Hex Instruction: ' + str(hexNum) + '\nMIPS Instruction: ' 
+			+ str(preFormatInstruction[0]) + ' ' + str(preFormatInstruction[2]) 
+			+ ', ' + str(preFormatInstruction[1]) + ', ' + str(preFormatInstruction[3]))
 	else:
 		# print('R-type')
 		# opCode, rsSource, rtSource, rdDestination, shiftAmount, functCode
 		binInstruction = [binNum[0:6],binNum[6:11],binNum[11:16],binNum[16:21],
 		binNum[21:26],'00' + binNum[26:]]
 		# print(binInstruction)
-		betweenInstruction = [hexNum[0],baseChange.binToDec(binInstruction[1]),
+		betweenInstruction = [baseChange.binToHex(binInstruction[0]),baseChange.binToDec(binInstruction[1]),
 			baseChange.binToDec(binInstruction[2]),baseChange.binToDec(binInstruction[3]),
-			baseChange.binToDec(binInstruction[4]),hexNum[8:]]
+			baseChange.binToDec(binInstruction[4]),hexNum[6:]]
 		# print(betweenInstruction)
-		preFormatInstruction = [getOpCode(hexNum[0],hexNum[8:]), 
+		preFormatInstruction = [getOpCode(hexNum[0],hexNum[6:]), 
 			getRegister(betweenInstruction[1]), getRegister(betweenInstruction[2]),
 			getRegister(betweenInstruction[3]), getRegister(betweenInstruction[4])]
 		# print(preFormatInstruction)
-		print('Hex instruction: ' + str(hexNum) + '\nIn MIPS is: ' 
+		print('Hex Instruction: ' + str(hexNum) + '\nMIPS Instruction: ' 
 			+ str(preFormatInstruction[0]) + ' ' + str(preFormatInstruction[3]) 
 			+ ', ' + str(preFormatInstruction[1]) + ', ' + str(preFormatInstruction[2]))
 
@@ -47,7 +51,10 @@ def getOpCode(opHex, functHex):
 	global MIPS_INSTRUCTION_LIST
 	global DELIM
 	csv_file = csv.reader(open(MIPS_INSTRUCTION_LIST,"r"), delimiter=DELIM)
-
+	if functHex == 'None':
+		for row in csv_file:
+			if opHex == row[0]:
+				return row[1]
 	for row in csv_file:
 		if opHex == row[0] and functHex == row[1]:
 			return row[2]

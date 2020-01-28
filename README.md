@@ -5,4 +5,5 @@ The full extent of this project is not known. As of right now I intend to make a
 This project is being made in Python 3.6.8. Project started: 24 Jan 2020
 
 # Hex to MIPS
-- Basic R-type instructions with no shift amount implemented 27 Jan 2020
+- Basic R-type instructions like 'add' & 'or' implemented (formatting not entirely implemented) 27 Jan 2020
+- Basic I-type instructions like 'addi' & 'sw' implemented (formatting not entirely implemented) 28 Jan 2020
